@@ -1,4 +1,4 @@
-
+declare module "express-api"
 
 interface AuthUser {
     username?: string

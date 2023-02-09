@@ -1,11 +1,11 @@
 
 require('dotenv').config()
 
-if (!process.env.AUTH_TOKEN_SECRET) throw Error("AUTH_TOKEN_SECRET not defined")
-export const AUTH_TOKEN_SECRET = process.env.AUTH_TOKEN_SECRET || ''
+export const AUTH_TOKEN_SECRET = need('AUTH_TOKEN_SECRET')
+export const REFRESH_TOKEN_SECRET = need('REFRESH_TOKEN_SECRET')
+export const COOKIES_SECRET = need('COOKIES_SECRET')
 
-if (!process.env.REFRESH_TOKEN_SECRET) throw Error("REFRESH_TOKEN_SECRET not defined")
-export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || ''
-
-if (!process.env.COOKIES_SECRET) throw Error("COOKIES_SECRET not defined")
-export const COOKIES_SECRET = process.env.COOKIES_SECRET || ''
+function need(v:string): string {
+    if (!process.env[v]) throw Error(`${v} is missing in environment`)
+    return process.env[v] || ''
+}

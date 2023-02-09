@@ -1,3 +1,4 @@
+
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -14,7 +15,10 @@ dotenv.config()
 const app = express()
 
 app.use(logging)
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }))
+app.use(cors({ 
+    credentials: true, 
+    origin: 'http://localhost:5173' 
+}))
 
 app.use(cookieParser(COOKIES_SECRET))
 app.use(express.urlencoded({ extended: false }))
@@ -24,7 +28,9 @@ app.use('/auth', authRouter)
 
 app.use(authenticate)
 
-app.get('/protected', (req, res) => res.json({ result: "OK" }))
+app.get('/protected', (req, res) => {
+    res.json({ result: "OK" })
+})
 
 const port = process.env.PORT || 3030
 app.listen(port, () => console.log(`Started on port ${port}`))

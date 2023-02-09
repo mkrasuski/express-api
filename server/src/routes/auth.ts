@@ -14,7 +14,6 @@ authRouter.post('/login', (req, res) => {
 
         const user = { username: "mkr" }
         try {
-
             const authToken = createAuthToken(user)
             const refreshToken = createRefreshToken(user)
 
@@ -41,14 +40,11 @@ authRouter.post('/login', (req, res) => {
 authRouter.get('/refresh', (req, res) => {
 
     try {
-        console.log(req.cookies)
         const cookieToken = req.cookies['token']
         const user = verifyRefreshToken(cookieToken)
         const authToken = createAuthToken(user)
 
-        res.json({
-            authToken
-        })
+        res.json({ authToken })
         return 
     }
     catch (err) {
