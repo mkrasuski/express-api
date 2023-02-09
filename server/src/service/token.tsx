@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken'
 import { AUTH_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../appenv'
+import { sign, verify } from 'jsonwebtoken'
 
 export function createAuthToken(user: AuthUser): string {
-    return jwt.sign(
+    return sign(
         { user },
         AUTH_TOKEN_SECRET,
         { expiresIn: '30s' }
@@ -11,7 +11,7 @@ export function createAuthToken(user: AuthUser): string {
 
 export function verifyAuthToken(token: string): AuthUser {
 
-    const data = jwt.verify(
+    const data = verify(
         token,
         AUTH_TOKEN_SECRET
     )
@@ -21,7 +21,7 @@ export function verifyAuthToken(token: string): AuthUser {
 
 export function createRefreshToken(user: AuthUser): string {
 
-    return jwt.sign(
+    return sign(
         { user },
         REFRESH_TOKEN_SECRET,
         { expiresIn: '1d' }
@@ -30,7 +30,7 @@ export function createRefreshToken(user: AuthUser): string {
 
 export function verifyRefreshToken(token: string): AuthUser {
 
-    const data = jwt.verify(
+    const data = verify(
         token,
         REFRESH_TOKEN_SECRET
     )
