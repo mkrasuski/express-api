@@ -31,11 +31,9 @@ api.interceptors.response.use(
         const config = error.config
 
         if (status == 403 && !config[kRetry]) {
-            console.log('retry', config[kRetry])
             setAuthToken(await refreshToken())
             config[kRetry] = true
             config.headers.Authorization = `Bearer ${authToken}`
-            console.log('now', config.headers, authToken)
             return api.request(config)
         }
 
